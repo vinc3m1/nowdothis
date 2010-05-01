@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string-array name="sample">
+        <item>take a nap</item>
+        <item>buy pen</item>
+        <item>organize room</item>
+    </string-array>
+</resources>
