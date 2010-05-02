@@ -1,42 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:orientation="vertical"
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent"
 	android:background="@android:color/white"
 	android:isScrollContainer="true" android:layout_gravity="center">
-
-	<TextView
-		android:id="@+id/edit"
-		android:text="@string/edit"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_centerHorizontal="true"
-		android:layout_alignParentBottom="true"
-		android:textColor="#5f5f5f"
-		android:layout_marginTop="10dip"
-		android:layout_gravity="center_horizontal"/>
-	<Button
-		android:id="@+id/done"
-		android:text="@string/done"
-		android:layout_width="wrap_content"
-		android:textColor="@android:color/black"
-		android:layout_centerHorizontal="true"
-		android:layout_height="wrap_content"
-		android:paddingRight="15dip"
-		android:paddingLeft="16dip"
-		android:layout_gravity="center_horizontal"
-		android:layout_above="@id/edit"/>
 	<EditText
-		android:id="@+id/item"
+		android:id="@+id/editor"
 		android:text="@string/hello"
 		android:layout_width="fill_parent"
 		android:textColor="@android:color/black"
 		android:layout_margin="18dip"
-		android:layout_gravity="center_horizontal"
-		android:layout_height="fill_parent"
-		android:layout_above="@id/done"
-		android:lines="4"
+		android:layout_gravity="center"
+		android:layout_height="wrap_content"
+		android:lines="6"
 		android:gravity="top|left"/>
-</RelativeLayout>
+	<LinearLayout
+		android:id="@+id/text"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center_horizontal"
+		android:layout_alignParentBottom="true"
+		android:orientation="horizontal"
+		android:layout_marginBottom="20dip">
+		<Button
+			android:id="@+id/savebutton"
+			android:text="@string/save"
+			android:layout_width="wrap_content"
+			android:textColor="@android:color/black"
+			android:layout_alignParentBottom="true"
+			android:layout_height="wrap_content"
+			android:paddingRight="15dip"
+			android:paddingLeft="16dip"/>
+		<TextView
+			android:id="@+id/or"
+			android:text="@string/or"
+			android:padding="5dip"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textColor="@android:color/black"/>
+		<TextView
+			android:id="@+id/cancellink"
+			android:text="@string/cancel"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textColor="@color/linkbutton"
+			android:paddingTop="20dip"
+			android:paddingBottom="20dip"
+			android:paddingRight="20dip"
+			android:clickable="true"
+			android:focusable="true"/>
+	</LinearLayout>
+</LinearLayout>

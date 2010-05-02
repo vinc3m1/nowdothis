@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="hello">take a nap.</string>
-    <string name="app_name">NowDoThis</string>
+    <string name="app_name">Now Do This</string>
     <string name="done">done.</string>
     <string name="edit"><u>edit list</u></string>
     <string name="alldone">all done!</string>
+    <string name="save">save</string>
+    <string name="or">or</string>
+    <string name="cancel"><u>cancel</u></string>
 </resources>
