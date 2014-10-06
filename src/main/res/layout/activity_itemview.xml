@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_gravity="center"
+    android:background="@android:color/white"
+    android:isScrollContainer="true"
+    android:orientation="vertical"
+    tools:context=".ItemViewActivity"
+    >
+  <TextView
+      android:id="@+id/itemtext"
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_gravity="center_horizontal"
+      android:layout_margin="16dip"
+      android:layout_weight="1"
+      android:gravity="center"
+      android:lines="4"
+      android:textColor="@android:color/black"
+      android:textSize="36sp"
+      android:textStyle="bold"
+      tools:text="@string/hello"
+      />
+  <Button
+      android:id="@+id/donebutton"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_horizontal"
+      android:text="@string/done"
+      android:textSize="18sp"
+      />
+  <Button
+      android:id="@+id/editlist"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_horizontal"
+      android:background="@android:color/transparent"
+      android:padding="16dp"
+      android:text="@string/edit"
+      android:textColor="@color/linkbutton"
+      android:textSize="18sp"
+      />
+</LinearLayout>
