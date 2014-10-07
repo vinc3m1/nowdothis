@@ -5,7 +5,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:layout_gravity="center"
-    android:background="@android:color/white"
+    android:background="#EEE"
     android:isScrollContainer="true"
     android:orientation="vertical"
     tools:context=".ItemViewActivity"
@@ -25,7 +25,7 @@
       tools:text="@string/hello"
       />
   <Button
-      android:id="@+id/donebutton"
+      android:id="@+id/btn_done"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_gravity="center_horizontal"
@@ -33,7 +33,7 @@
       android:textSize="18sp"
       />
   <Button
-      android:id="@+id/editlist"
+      android:id="@+id/btn_editlist"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_gravity="center_horizontal"
