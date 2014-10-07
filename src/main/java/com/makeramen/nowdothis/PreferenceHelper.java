@@ -49,7 +49,7 @@ public class PreferenceHelper {
   public String popList() {
     String[] todos = getTodos();
     if (todos.length > 1) {
-      todos = Arrays.copyOfRange(todos, 1, todos.length - 1);
+      todos = Arrays.copyOfRange(todos, 1, todos.length);
       saveTodos(TextUtils.join("\n", todos));
       return todos[0];
     } else {
