@@ -1,4 +1,4 @@
-package com.makeramen.nowdothis;
+package com.makeramen.nowdothis.ui;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,6 +11,9 @@ import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
+import com.makeramen.nowdothis.NowDoThisApp;
+import com.makeramen.nowdothis.PreferenceHelper;
+import com.makeramen.nowdothis.R;
 import javax.inject.Inject;
 
 public class TodoFragment extends Fragment {

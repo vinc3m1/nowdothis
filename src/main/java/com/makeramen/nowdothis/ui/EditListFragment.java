@@ -1,4 +1,4 @@
-package com.makeramen.nowdothis;
+package com.makeramen.nowdothis.ui;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -13,6 +13,9 @@ import android.widget.EditText;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
+import com.makeramen.nowdothis.NowDoThisApp;
+import com.makeramen.nowdothis.PreferenceHelper;
+import com.makeramen.nowdothis.R;
 import javax.inject.Inject;
 
 public class EditListFragment extends Fragment {

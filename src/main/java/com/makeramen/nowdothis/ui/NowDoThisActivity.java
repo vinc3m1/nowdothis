@@ -1,8 +1,10 @@
-package com.makeramen.nowdothis;
+package com.makeramen.nowdothis.ui;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import com.makeramen.nowdothis.NowDoThisApp;
+import com.makeramen.nowdothis.PreferenceHelper;
 import javax.inject.Inject;
 
 public class NowDoThisActivity extends FragmentActivity {

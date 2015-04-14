@@ -16,11 +16,11 @@ public class NowDoThisApp extends Application {
     objectGraph = ObjectGraph.create(new NowDoThisModule(this));
   }
 
-  static void inject(Activity activity) {
+  public static void inject(Activity activity) {
     inject(activity, activity);
   }
 
-  static void inject(Object o, Context context) {
+  public static void inject(Object o, Context context) {
     NowDoThisApp.get(context).objectGraph.inject(o);
   }
 

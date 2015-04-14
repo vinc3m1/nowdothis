@@ -40,7 +40,7 @@
       android:background="@android:color/transparent"
       android:padding="16dp"
       android:text="@string/edit"
-      android:textColor="@color/linkbutton"
+      android:textColor="@color/btn_link"
       android:textSize="18sp"
       />
 </LinearLayout>
