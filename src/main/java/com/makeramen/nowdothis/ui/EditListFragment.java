@@ -14,14 +14,14 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 import com.makeramen.nowdothis.NowDoThisApp;
-import com.makeramen.nowdothis.PreferenceHelper;
+import com.makeramen.nowdothis.data.NowDoThisPreferences;
 import com.makeramen.nowdothis.R;
 import javax.inject.Inject;
 
 public class EditListFragment extends Fragment {
 
   InputMethodManager imm;
-  @Inject PreferenceHelper preferenceHelper;
+  @Inject NowDoThisPreferences nowDoThisPreferences;
   @InjectView(R.id.editor) EditText editor;
 
   @Override public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
@@ -39,7 +39,7 @@ public class EditListFragment extends Fragment {
 
   @Override public void onResume() {
     super.onResume();
-    editor.setText(TextUtils.join("\n", preferenceHelper.getTodos()));
+    editor.setText(TextUtils.join("\n", nowDoThisPreferences.getTodos()));
     editor.post(new Runnable() {
       @Override public void run() {
         editor.requestFocus();
@@ -52,7 +52,7 @@ public class EditListFragment extends Fragment {
   @Override public void onPause() {
     super.onPause();
     imm.hideSoftInputFromWindow(editor.getWindowToken(), 0);
-    preferenceHelper.saveTodos(editor.getText().toString());
+    nowDoThisPreferences.saveTodos(editor.getText().toString());
   }
 
   @OnClick(R.id.btn_ready) void readyClick() {

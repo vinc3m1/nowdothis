@@ -12,13 +12,13 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 import com.makeramen.nowdothis.NowDoThisApp;
-import com.makeramen.nowdothis.PreferenceHelper;
+import com.makeramen.nowdothis.data.NowDoThisPreferences;
 import com.makeramen.nowdothis.R;
 import javax.inject.Inject;
 
 public class TodoFragment extends Fragment {
 
-  @Inject PreferenceHelper preferenceHelper;
+  @Inject NowDoThisPreferences nowDoThisPreferences;
   @InjectView(R.id.itemtext) TextView itemText;
   @InjectView(R.id.btn_editlist) TextView editListBtn;
   @InjectView(R.id.btn_done) Button doneButton;
@@ -38,7 +38,7 @@ public class TodoFragment extends Fragment {
   @Override public void onResume() {
     super.onResume();
 
-    String[] todos = preferenceHelper.getTodos();
+    String[] todos = nowDoThisPreferences.getTodos();
     updateUI(todos.length > 0 ? todos[0] : null);
   }
 
@@ -55,7 +55,7 @@ public class TodoFragment extends Fragment {
   }
 
   @OnClick(R.id.btn_done) void doneClick() {
-    updateUI(preferenceHelper.popList());
+    updateUI(nowDoThisPreferences.popList());
   }
 
   @OnClick(R.id.btn_editlist) void editList() {

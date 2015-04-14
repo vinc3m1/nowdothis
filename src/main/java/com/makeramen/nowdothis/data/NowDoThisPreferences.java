@@ -1,4 +1,4 @@
-package com.makeramen.nowdothis;
+package com.makeramen.nowdothis.data;
 
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
@@ -14,13 +14,13 @@ import javax.inject.Singleton;
 import static com.makeramen.nowdothis.NowDoThisApp.KEY_TODOS;
 
 @PerApp
-public class PreferenceHelper {
+public class NowDoThisPreferences {
 
   final Gson gson;
   final SharedPreferences prefs;
 
   @Inject
-  public PreferenceHelper(SharedPreferences prefs, Gson gson) {
+  public NowDoThisPreferences(SharedPreferences prefs, Gson gson) {
     this.prefs = prefs;
     this.gson = gson;
   }
@@ -48,8 +48,7 @@ public class PreferenceHelper {
         .apply();
   }
 
-  @Nullable
-  public String popList() {
+  @Nullable public String popList() {
     String[] todos = getTodos();
     if (todos.length > 1) {
       todos = Arrays.copyOfRange(todos, 1, todos.length);

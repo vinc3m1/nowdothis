@@ -4,11 +4,11 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import com.makeramen.nowdothis.NowDoThisApp;
-import com.makeramen.nowdothis.PreferenceHelper;
+import com.makeramen.nowdothis.data.NowDoThisPreferences;
 import javax.inject.Inject;
 
 public class NowDoThisActivity extends FragmentActivity {
-  @Inject PreferenceHelper preferenceHelper;
+  @Inject NowDoThisPreferences nowDoThisPreferences;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -16,7 +16,7 @@ public class NowDoThisActivity extends FragmentActivity {
     NowDoThisApp.getComponent(this).inject(this);
 
     if (getSupportFragmentManager().findFragmentById(android.R.id.content) == null) {
-      Fragment fragment = preferenceHelper.getTodos().length > 0
+      Fragment fragment = nowDoThisPreferences.getTodos().length > 0
           ? new TodoFragment()
           : new EditListFragment();
       getSupportFragmentManager().beginTransaction()
