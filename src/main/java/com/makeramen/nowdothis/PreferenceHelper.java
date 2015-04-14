@@ -45,7 +45,7 @@ public class PreferenceHelper {
 
     prefs.edit()
         .putString(KEY_TODOS, gson.toJson(clean))
-        .commit();
+        .apply();
   }
 
   @Nullable
