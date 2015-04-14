@@ -1,30 +1,23 @@
 package com.makeramen.nowdothis;
 
-import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
-import dagger.ObjectGraph;
 
 public class NowDoThisApp extends Application {
 
   public static final String KEY_TODOS = "todos";
 
-  private ObjectGraph objectGraph;
+  private NowDoThisComponent component;
 
   @Override public void onCreate() {
     super.onCreate();
-    objectGraph = ObjectGraph.create(new NowDoThisModule(this));
+
+    component = DaggerNowDoThisComponent.builder()
+        .nowDoThisModule(new NowDoThisModule(this))
+        .build();
   }
 
-  public static void inject(Activity activity) {
-    inject(activity, activity);
-  }
-
-  public static void inject(Object o, Context context) {
-    NowDoThisApp.get(context).objectGraph.inject(o);
-  }
-
-  static NowDoThisApp get(Context context) {
-    return (NowDoThisApp) context.getApplicationContext();
+  public static NowDoThisComponent getComponent(Context context) {
+    return ((NowDoThisApp) context.getApplicationContext()).component;
   }
 }

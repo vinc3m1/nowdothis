@@ -12,7 +12,8 @@ public class NowDoThisActivity extends FragmentActivity {
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    NowDoThisApp.inject(this);
+
+    NowDoThisApp.getComponent(this).inject(this);
 
     if (getSupportFragmentManager().findFragmentById(android.R.id.content) == null) {
       Fragment fragment = preferenceHelper.getTodos().length > 0

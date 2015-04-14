@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import com.google.gson.Gson;
+import com.makeramen.nowdothis.dagger.PerApp;
 import java.util.ArrayList;
 import java.util.Arrays;
 import javax.inject.Inject;
@@ -12,7 +13,7 @@ import javax.inject.Singleton;
 
 import static com.makeramen.nowdothis.NowDoThisApp.KEY_TODOS;
 
-@Singleton
+@PerApp
 public class PreferenceHelper {
 
   final Gson gson;

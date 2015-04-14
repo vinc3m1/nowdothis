@@ -33,7 +33,7 @@ public class EditListFragment extends Fragment {
 
   @Override public void onActivityCreated(@Nullable Bundle savedInstanceState) {
     super.onActivityCreated(savedInstanceState);
-    NowDoThisApp.inject(this, getActivity());
+    NowDoThisApp.getComponent(getActivity()).inject(this);
     imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
   }
 

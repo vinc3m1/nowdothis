@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import com.google.gson.Gson;
+import com.makeramen.nowdothis.dagger.PerApp;
 import com.makeramen.nowdothis.ui.EditListFragment;
 import com.makeramen.nowdothis.ui.NowDoThisActivity;
 import com.makeramen.nowdothis.ui.TodoFragment;
@@ -11,13 +12,8 @@ import dagger.Module;
 import dagger.Provides;
 import javax.inject.Singleton;
 
-@Module(
-    injects = {
-        NowDoThisActivity.class,
-        EditListFragment.class,
-        TodoFragment.class,
-    }
-)
+@PerApp
+@Module
 public class NowDoThisModule {
 
   static final String PREFS_DEFAULT = "nowdothis";
@@ -28,19 +24,19 @@ public class NowDoThisModule {
     this.app = app;
   }
 
-  @Provides @Singleton NowDoThisApp provideNowDoThisApp() {
+  @Provides @PerApp NowDoThisApp provideNowDoThisApp() {
     return app;
   }
 
-  @Provides @Singleton Application provideApplication(NowDoThisApp app) {
+  @Provides @PerApp Application provideApplication(NowDoThisApp app) {
     return app;
   }
 
-  @Provides @Singleton SharedPreferences provideSharedPrefs(Application app) {
+  @Provides @PerApp SharedPreferences provideSharedPrefs(Application app) {
     return app.getSharedPreferences(PREFS_DEFAULT, Context.MODE_PRIVATE);
   }
 
-  @Provides @Singleton Gson provideGson() {
+  @Provides @PerApp Gson provideGson() {
     return new Gson();
   }
 }

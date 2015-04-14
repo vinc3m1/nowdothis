@@ -32,7 +32,7 @@ public class TodoFragment extends Fragment {
 
   @Override public void onActivityCreated(@Nullable Bundle savedInstanceState) {
     super.onActivityCreated(savedInstanceState);
-    NowDoThisApp.inject(this, getActivity());
+    NowDoThisApp.getComponent(getActivity()).inject(this);
   }
 
   @Override public void onResume() {
