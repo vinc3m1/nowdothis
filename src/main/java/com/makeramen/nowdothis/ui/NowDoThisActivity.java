@@ -1,25 +1,25 @@
 package com.makeramen.nowdothis.ui;
 
+import android.app.Activity;
+import android.app.Fragment;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import com.makeramen.nowdothis.NowDoThisApp;
-import com.makeramen.nowdothis.data.NowDoThisPreferences;
+import com.makeramen.nowdothis.data.TodoStorage;
 import javax.inject.Inject;
 
-public class NowDoThisActivity extends FragmentActivity {
-  @Inject NowDoThisPreferences nowDoThisPreferences;
+public class NowDoThisActivity extends Activity {
+  @Inject TodoStorage todoStorage;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
     NowDoThisApp.getComponent(this).inject(this);
 
-    if (getSupportFragmentManager().findFragmentById(android.R.id.content) == null) {
-      Fragment fragment = nowDoThisPreferences.getTodos().length > 0
+    if (getFragmentManager().findFragmentById(android.R.id.content) == null) {
+      Fragment fragment = todoStorage.getTodos().length > 0
           ? new TodoFragment()
           : new EditListFragment();
-      getSupportFragmentManager().beginTransaction()
+      getFragmentManager().beginTransaction()
           .replace(android.R.id.content, fragment)
           .commit();
     }

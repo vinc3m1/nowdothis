@@ -1,8 +1,8 @@
 package com.makeramen.nowdothis.ui;
 
+import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,13 +12,13 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 import com.makeramen.nowdothis.NowDoThisApp;
-import com.makeramen.nowdothis.data.NowDoThisPreferences;
 import com.makeramen.nowdothis.R;
+import com.makeramen.nowdothis.data.TodoStorage;
 import javax.inject.Inject;
 
 public class TodoFragment extends Fragment {
 
-  @Inject NowDoThisPreferences nowDoThisPreferences;
+  @Inject TodoStorage todoStorage;
   @InjectView(R.id.itemtext) TextView itemText;
   @InjectView(R.id.btn_editlist) TextView editListBtn;
   @InjectView(R.id.btn_done) Button doneButton;
@@ -38,7 +38,7 @@ public class TodoFragment extends Fragment {
   @Override public void onResume() {
     super.onResume();
 
-    String[] todos = nowDoThisPreferences.getTodos();
+    String[] todos = todoStorage.getTodos();
     updateUI(todos.length > 0 ? todos[0] : null);
   }
 
@@ -55,7 +55,7 @@ public class TodoFragment extends Fragment {
   }
 
   @OnClick(R.id.btn_done) void doneClick() {
-    updateUI(nowDoThisPreferences.popList());
+    updateUI(todoStorage.popList());
   }
 
   @OnClick(R.id.btn_editlist) void editList() {

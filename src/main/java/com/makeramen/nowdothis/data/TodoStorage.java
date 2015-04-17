@@ -9,18 +9,17 @@ import com.makeramen.nowdothis.dagger.PerApp;
 import java.util.ArrayList;
 import java.util.Arrays;
 import javax.inject.Inject;
-import javax.inject.Singleton;
-
-import static com.makeramen.nowdothis.NowDoThisApp.KEY_TODOS;
 
 @PerApp
-public class NowDoThisPreferences {
+public class TodoStorage {
+
+  public static final String KEY_TODOS = "todos";
 
   final Gson gson;
   final SharedPreferences prefs;
 
   @Inject
-  public NowDoThisPreferences(SharedPreferences prefs, Gson gson) {
+  public TodoStorage(SharedPreferences prefs, Gson gson) {
     this.prefs = prefs;
     this.gson = gson;
   }

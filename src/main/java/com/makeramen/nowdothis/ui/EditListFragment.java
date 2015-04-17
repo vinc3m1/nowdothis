@@ -1,9 +1,11 @@
 package com.makeramen.nowdothis.ui;
 
+import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,18 +16,23 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 import com.makeramen.nowdothis.NowDoThisApp;
-import com.makeramen.nowdothis.data.NowDoThisPreferences;
 import com.makeramen.nowdothis.R;
+import com.makeramen.nowdothis.data.TodoStorage;
+import com.makeramen.nowdothis.ui.imgur.ImgurUploadActivity;
 import javax.inject.Inject;
+
+import static android.app.Activity.RESULT_OK;
 
 public class EditListFragment extends Fragment {
 
+  static final int REQUEST_CODE_IMGUR = 3;
+
   InputMethodManager imm;
-  @Inject NowDoThisPreferences nowDoThisPreferences;
+  @Inject TodoStorage todoStorage;
   @InjectView(R.id.editor) EditText editor;
 
-  @Override public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
-      @Nullable Bundle savedInstanceState) {
+  @Override public View onCreateView(@NonNull LayoutInflater inflater,
+      @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.fragment_editlist, container, false);
     ButterKnife.inject(this, view);
     return view;
@@ -39,7 +46,7 @@ public class EditListFragment extends Fragment {
 
   @Override public void onResume() {
     super.onResume();
-    editor.setText(TextUtils.join("\n", nowDoThisPreferences.getTodos()));
+    editor.setText(TextUtils.join("\n", todoStorage.getTodos()));
     editor.post(new Runnable() {
       @Override public void run() {
         editor.requestFocus();
@@ -52,12 +59,28 @@ public class EditListFragment extends Fragment {
   @Override public void onPause() {
     super.onPause();
     imm.hideSoftInputFromWindow(editor.getWindowToken(), 0);
-    nowDoThisPreferences.saveTodos(editor.getText().toString());
+    todoStorage.saveTodos(editor.getText().toString());
   }
 
   @OnClick(R.id.btn_ready) void readyClick() {
     getFragmentManager().beginTransaction()
         .replace(getId(), new TodoFragment())
         .commit();
+  }
+
+  @OnClick(R.id.btn_imgur) void imgurClick() {
+    startActivityForResult(new Intent(getActivity(), ImgurUploadActivity.class),
+        REQUEST_CODE_IMGUR);
+  }
+
+  @Override public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    switch (requestCode) {
+      case REQUEST_CODE_IMGUR:
+        if (resultCode == RESULT_OK && data != null) {
+          // do stuff
+        }
+        return;
+    }
+    super.onActivityResult(requestCode, resultCode, data);
   }
 }

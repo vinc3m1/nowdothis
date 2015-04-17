@@ -7,4 +7,7 @@
   <string name="ready">ready</string>
   <string name="default_todos">take a nap\nbuy pen\norganize room</string>
   <string name="label_list">Enter your todo list:</string>
+  <string name="imgur">Imgur</string>
+  <string name="btn_img_choose">Choose a picture</string>
+  <string name="btn_img_upload">Upload</string>
 </resources>
