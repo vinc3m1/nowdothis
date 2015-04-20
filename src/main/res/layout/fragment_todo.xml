@@ -10,20 +10,31 @@
     android:orientation="vertical"
     tools:context=".ItemViewActivity"
     >
-  <TextView
-      android:id="@+id/itemtext"
+  <FrameLayout
       android:layout_width="match_parent"
       android:layout_height="0dp"
       android:layout_gravity="center_horizontal"
       android:layout_margin="16dip"
       android:layout_weight="1"
-      android:gravity="center"
-      android:lines="4"
-      android:textColor="@android:color/black"
-      android:textSize="36sp"
-      android:textStyle="bold"
-      tools:text="@string/hello"
-      />
+      >
+    <TextView
+        android:id="@+id/item_text"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:lines="4"
+        android:textColor="@android:color/black"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        tools:text="hello."
+        />
+    <ImageView
+        android:id="@+id/item_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        />
+  </FrameLayout>
   <Button
       android:id="@+id/btn_done"
       android:layout_width="wrap_content"
@@ -34,10 +45,10 @@
       />
   <Button
       android:id="@+id/btn_editlist"
+      style="?android:attr/borderlessButtonStyle"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_gravity="center_horizontal"
-      android:background="@android:color/transparent"
       android:padding="16dp"
       android:text="@string/edit"
       android:textColor="@color/btn_link"

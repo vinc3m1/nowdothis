@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -15,12 +16,15 @@ import butterknife.OnClick;
 import com.makeramen.nowdothis.NowDoThisApp;
 import com.makeramen.nowdothis.R;
 import com.makeramen.nowdothis.data.TodoStorage;
+import com.squareup.picasso.Picasso;
 import javax.inject.Inject;
 
 public class TodoFragment extends Fragment {
 
   @Inject TodoStorage todoStorage;
-  @InjectView(R.id.itemtext) TextView itemText;
+  @Inject Picasso picasso;
+  @InjectView(R.id.item_text) TextView itemText;
+  @InjectView(R.id.item_image) ImageView itemImage;
   @InjectView(R.id.btn_editlist) TextView editListBtn;
   @InjectView(R.id.btn_done) Button doneButton;
 
@@ -45,10 +49,19 @@ public class TodoFragment extends Fragment {
 
   void updateUI(@Nullable String todo) {
     if (todo != null) {
-      if (!todo.endsWith(".")) { todo = todo + "."; }
-      itemText.setText(todo);
-      itemText.setTextColor(getResources().getColor(R.color.black));
+      if (todo.startsWith("http://i.imgur.com/")) {
+        itemText.setText(null);
+        itemText.setVisibility(View.GONE);
+        itemImage.setVisibility(View.VISIBLE);
+        picasso.load(todo).fit().centerInside().into(itemImage);
+      } else {
+        if (!todo.endsWith(".")) { todo = todo + "."; }
+        itemText.setText(todo);
+        itemText.setTextColor(getResources().getColor(R.color.black));
+      }
     } else {
+      itemImage.setVisibility(View.GONE);
+      itemText.setVisibility(View.VISIBLE);
       itemText.setText(R.string.all_done);
       itemText.setTextColor(getResources().getColor(R.color.green));
       doneButton.setVisibility(View.INVISIBLE);
