@@ -15,52 +15,41 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginBottom="8dp"
+      android:layout_marginLeft="4dp"
+      android:layout_marginStart="4dp"
       android:text="@string/label_list"
-      android:textAppearance="?android:textAppearanceMedium"
+      android:textAppearance="?android:textAppearanceLarge"
       />
-  <FrameLayout
+  <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="0dp"
       android:layout_weight="1"
+      android:gravity="center_horizontal"
+      android:orientation="vertical"
       >
-    <FrameLayout
+    <EditText
+        android:id="@+id/editor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FFF"
-        >
-      <EditText
-          android:id="@+id/editor"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_gravity="center"
-          android:gravity="top|start"
-          android:hint="@string/default_todos"
-          android:inputType="textMultiLine"
-          android:minLines="3"
-          />
-    </FrameLayout>
-  </FrameLayout>
-  <LinearLayout
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_gravity="center_horizontal"
-      android:orientation="horizontal"
-      >
-    <Button
-        android:id="@+id/btn_ready"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:text="@string/ready"
+        android:layout_gravity="center"
+        android:gravity="top|start"
+        android:hint="@string/default_todos"
+        android:inputType="textMultiLine"
+        android:minLines="3"
         />
     <Button
         android:id="@+id/btn_imgur"
+        style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
         android:text="@string/imgur"
         />
   </LinearLayout>
+  <Button
+      android:id="@+id/btn_ready"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_horizontal"
+      android:text="@string/ready"
+      />
 </LinearLayout>
