@@ -42,11 +42,11 @@ public class EditListFragment extends Fragment {
     super.onActivityCreated(savedInstanceState);
     NowDoThisApp.getComponent(getActivity()).inject(this);
     imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+    editor.setText(TextUtils.join("\n", todoStorage.getTodos()));
   }
 
   @Override public void onResume() {
     super.onResume();
-    editor.setText(TextUtils.join("\n", todoStorage.getTodos()));
     editor.post(new Runnable() {
       @Override public void run() {
         editor.requestFocus();
@@ -77,7 +77,8 @@ public class EditListFragment extends Fragment {
     switch (requestCode) {
       case REQUEST_CODE_IMGUR:
         if (resultCode == RESULT_OK && data != null) {
-          // do stuff
+          String link = data.getStringExtra(ImgurUploadActivity.EXTRA_IMG_URL);
+          editor.setText(editor.getText().append("\n").append(link));
         }
         return;
     }

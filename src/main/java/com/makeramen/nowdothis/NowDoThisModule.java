@@ -5,7 +5,8 @@ import com.makeramen.nowdothis.dagger.PerApp;
 import dagger.Module;
 import dagger.Provides;
 
-@Module public class NowDoThisModule {
+@Module
+public class NowDoThisModule {
 
   final NowDoThisApp app;
 
