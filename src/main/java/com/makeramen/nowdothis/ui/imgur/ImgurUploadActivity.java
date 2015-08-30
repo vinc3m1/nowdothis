@@ -18,6 +18,7 @@ import com.makeramen.nowdothis.NowDoThisApp;
 import com.makeramen.nowdothis.R;
 import com.makeramen.nowdothis.data.imgur.ImageUpload;
 import com.makeramen.nowdothis.data.imgur.ImgurApi;
+import com.makeramen.nowdothis.data.imgur.ImgurModule;
 import com.makeramen.nowdothis.data.imgur.Responses;
 import com.squareup.picasso.Picasso;
 import javax.inject.Inject;
@@ -49,8 +50,7 @@ public class ImgurUploadActivity extends Activity {
 
     component = DaggerImgurActivityComponent.builder()
         .nowDoThisAppComponent(NowDoThisApp.getComponent(this))
-        // optional
-        //.imgurModule(new ImgurModule())
+        .imgurModule(new ImgurModule())
         .build();
 
     component.inject(this);
