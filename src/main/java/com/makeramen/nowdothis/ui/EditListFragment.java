@@ -35,9 +35,12 @@ public class EditListFragment extends Fragment {
     View view = inflater.inflate(R.layout.fragment_editlist, container, false);
     editor = view.findViewById(R.id.editor);
     view.findViewById(R.id.btn_ready)
-        .setOnClickListener(v -> getFragmentManager().beginTransaction()
-            .replace(getId(), new TodoFragment())
-            .commit());
+        .setOnClickListener(v -> {
+          todoStorage.saveTodos(editor.getText().toString());
+          getFragmentManager().beginTransaction()
+              .replace(getId(), new TodoFragment())
+              .commit();
+        });
     view.findViewById(R.id.btn_imgur).setOnClickListener(v -> startActivityForResult(
                 new Intent(getActivity(), ImgurUploadActivity.class), REQUEST_CODE_IMGUR));
     return view;
