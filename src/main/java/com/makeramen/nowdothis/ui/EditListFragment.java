@@ -12,13 +12,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import butterknife.ButterKnife;
-import butterknife.InjectView;
-import butterknife.OnClick;
+
 import com.makeramen.nowdothis.NowDoThisApp;
 import com.makeramen.nowdothis.R;
 import com.makeramen.nowdothis.data.TodoStorage;
 import com.makeramen.nowdothis.ui.imgur.ImgurUploadActivity;
+
 import javax.inject.Inject;
 
 import static android.app.Activity.RESULT_OK;
@@ -27,14 +26,20 @@ public class EditListFragment extends Fragment {
 
   static final int REQUEST_CODE_IMGUR = 3;
 
-  InputMethodManager imm;
   @Inject TodoStorage todoStorage;
-  @InjectView(R.id.editor) EditText editor;
+  private InputMethodManager imm;
+  private EditText editor;
 
   @Override public View onCreateView(@NonNull LayoutInflater inflater,
       @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.fragment_editlist, container, false);
-    ButterKnife.inject(this, view);
+    editor = view.findViewById(R.id.editor);
+    view.findViewById(R.id.btn_ready)
+        .setOnClickListener(v -> getFragmentManager().beginTransaction()
+            .replace(getId(), new TodoFragment())
+            .commit());
+    view.findViewById(R.id.btn_imgur).setOnClickListener(v -> startActivityForResult(
+                new Intent(getActivity(), ImgurUploadActivity.class), REQUEST_CODE_IMGUR));
     return view;
   }
 
@@ -47,12 +52,10 @@ public class EditListFragment extends Fragment {
 
   @Override public void onResume() {
     super.onResume();
-    editor.post(new Runnable() {
-      @Override public void run() {
-        editor.requestFocus();
-        editor.setSelection(editor.length());
-        imm.showSoftInput(editor, InputMethodManager.SHOW_IMPLICIT);
-      }
+    editor.post(() -> {
+      editor.requestFocus();
+      editor.setSelection(editor.length());
+      imm.showSoftInput(editor, InputMethodManager.SHOW_IMPLICIT);
     });
   }
 
@@ -60,17 +63,6 @@ public class EditListFragment extends Fragment {
     super.onPause();
     imm.hideSoftInputFromWindow(editor.getWindowToken(), 0);
     todoStorage.saveTodos(editor.getText().toString());
-  }
-
-  @OnClick(R.id.btn_ready) void readyClick() {
-    getFragmentManager().beginTransaction()
-        .replace(getId(), new TodoFragment())
-        .commit();
-  }
-
-  @OnClick(R.id.btn_imgur) void imgurClick() {
-    startActivityForResult(new Intent(getActivity(), ImgurUploadActivity.class),
-        REQUEST_CODE_IMGUR);
   }
 
   @Override public void onActivityResult(int requestCode, int resultCode, Intent data) {

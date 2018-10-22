@@ -3,8 +3,10 @@ package com.makeramen.nowdothis.ui;
 import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
+
 import com.makeramen.nowdothis.NowDoThisApp;
 import com.makeramen.nowdothis.data.TodoStorage;
+
 import javax.inject.Inject;
 
 public class NowDoThisActivity extends Activity {

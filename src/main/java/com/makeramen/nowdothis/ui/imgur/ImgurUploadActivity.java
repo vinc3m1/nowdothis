@@ -11,9 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
-import butterknife.ButterKnife;
-import butterknife.InjectView;
-import butterknife.OnClick;
+
 import com.makeramen.nowdothis.NowDoThisApp;
 import com.makeramen.nowdothis.R;
 import com.makeramen.nowdothis.data.imgur.ImageUpload;
@@ -21,7 +19,9 @@ import com.makeramen.nowdothis.data.imgur.ImgurApi;
 import com.makeramen.nowdothis.data.imgur.ImgurModule;
 import com.makeramen.nowdothis.data.imgur.Responses;
 import com.squareup.picasso.Picasso;
+
 import javax.inject.Inject;
+
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -33,12 +33,12 @@ public class ImgurUploadActivity extends Activity {
   private static final String DATA_IMG_PATH = "path";
   public static final String EXTRA_IMG_URL = "url";
 
-  @InjectView(R.id.image) ImageView imageView;
-  @InjectView(R.id.btn_choose) Button chooseButton;
-  @InjectView(R.id.btn_upload) Button uploadButton;
+  private ImageView imageView;
+  private Button chooseButton;
+  private Button uploadButton;
   @Inject Picasso picasso;
   @Inject ImgurApi mImgurApi;
-  @Nullable Uri imgUri;
+  @Nullable private Uri imgUri;
 
   ImgurActivityComponent component;
 
@@ -46,7 +46,34 @@ public class ImgurUploadActivity extends Activity {
     super.onCreate(savedInstanceState);
 
     setContentView(R.layout.activity_imgur_upload);
-    ButterKnife.inject(this);
+    imageView = findViewById(R.id.image);
+    chooseButton = findViewById(R.id.btn_choose);
+    uploadButton = findViewById(R.id.btn_upload);
+
+    chooseButton.setOnClickListener(v -> startActivityForResult(
+        new Intent(Intent.ACTION_PICK).setType("image/"),
+        //new Intent(Intent.ACTION_OPEN_DOCUMENT)
+        //    .addCategory(Intent.CATEGORY_OPENABLE)
+        //    .setType("image/"),
+        REQUEST_CODE_IMG_PICK));
+
+    uploadButton.setOnClickListener(v -> {
+      final ProgressDialog dialog = ProgressDialog.show(this, null, "Uploading...", true, false);
+      mImgurApi.uploadImage(new ImageUpload(getContentResolver(), imgUri),
+          new Callback<Responses.ImageResponse>() {
+            @Override public void success(Responses.ImageResponse imageResponse, Response response) {
+              dialog.dismiss();
+              setResult(RESULT_OK, new Intent().putExtra(EXTRA_IMG_URL, imageResponse.data.link));
+              finish();
+            }
+
+            @Override public void failure(RetrofitError error) {
+              dialog.dismiss();
+              Toast.makeText(ImgurUploadActivity.this, "Error uploading image: " + error.getMessage(),
+                  Toast.LENGTH_SHORT).show();
+            }
+          });
+    });
 
     component = DaggerImgurActivityComponent.builder()
         .nowDoThisAppComponent(NowDoThisApp.getComponent(this))
@@ -87,32 +114,5 @@ public class ImgurUploadActivity extends Activity {
         return;
     }
     super.onActivityResult(requestCode, resultCode, data);
-  }
-
-  @OnClick({ R.id.image, R.id.btn_choose }) void onChooseClick() {
-    startActivityForResult(
-        new Intent(Intent.ACTION_PICK).setType("image/"),
-        //new Intent(Intent.ACTION_OPEN_DOCUMENT)
-        //    .addCategory(Intent.CATEGORY_OPENABLE)
-        //    .setType("image/"),
-        REQUEST_CODE_IMG_PICK);
-  }
-
-  @OnClick({ R.id.btn_upload }) void onUploadClick() {
-    final ProgressDialog dialog = ProgressDialog.show(this, null, "Uploading...", true, false);
-    mImgurApi.uploadImage(new ImageUpload(getContentResolver(), imgUri),
-        new Callback<Responses.ImageResponse>() {
-          @Override public void success(Responses.ImageResponse imageResponse, Response response) {
-            dialog.dismiss();
-            setResult(RESULT_OK, new Intent().putExtra(EXTRA_IMG_URL, imageResponse.data.link));
-            finish();
-          }
-
-          @Override public void failure(RetrofitError error) {
-            dialog.dismiss();
-            Toast.makeText(ImgurUploadActivity.this, "Error uploading image: " + error.getMessage(),
-                Toast.LENGTH_SHORT).show();
-          }
-        });
   }
 }

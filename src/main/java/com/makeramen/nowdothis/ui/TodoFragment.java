@@ -10,28 +10,36 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import butterknife.ButterKnife;
-import butterknife.InjectView;
-import butterknife.OnClick;
+
 import com.makeramen.nowdothis.NowDoThisApp;
 import com.makeramen.nowdothis.R;
 import com.makeramen.nowdothis.data.TodoStorage;
 import com.squareup.picasso.Picasso;
+
 import javax.inject.Inject;
 
 public class TodoFragment extends Fragment {
 
   @Inject TodoStorage todoStorage;
   @Inject Picasso picasso;
-  @InjectView(R.id.item_text) TextView itemText;
-  @InjectView(R.id.item_image) ImageView itemImage;
-  @InjectView(R.id.btn_editlist) TextView editListBtn;
-  @InjectView(R.id.btn_done) Button doneButton;
+  private TextView itemText;
+  private ImageView itemImage;
+  private TextView editListBtn;
+  private Button doneButton;
 
   @Override public View onCreateView(@NonNull LayoutInflater inflater,
       @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.fragment_todo, container, false);
-    ButterKnife.inject(this, view);
+    itemText = view.findViewById(R.id.item_text);
+    itemImage = view.findViewById(R.id.item_image);
+    editListBtn = view.findViewById(R.id.btn_editlist);
+    doneButton = view.findViewById(R.id.btn_done);
+
+    doneButton.setOnClickListener(v -> updateUI(todoStorage.popList()));
+    editListBtn.setOnClickListener(v -> getFragmentManager().beginTransaction()
+        .replace(getId(), new EditListFragment())
+        .commit());
+
     return view;
   }
 
@@ -66,15 +74,5 @@ public class TodoFragment extends Fragment {
       itemText.setTextColor(getResources().getColor(R.color.green));
       doneButton.setVisibility(View.INVISIBLE);
     }
-  }
-
-  @OnClick(R.id.btn_done) void doneClick() {
-    updateUI(todoStorage.popList());
-  }
-
-  @OnClick(R.id.btn_editlist) void editList() {
-    getFragmentManager().beginTransaction()
-        .replace(getId(), new EditListFragment())
-        .commit();
   }
 }
